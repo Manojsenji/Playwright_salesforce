@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "allure-playwright": "^3.10.2",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "googleapis": "^178.1.1"
   }
 }
