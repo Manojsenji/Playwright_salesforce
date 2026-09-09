@@ -115,3 +115,21 @@ The workflow runs two steps in order, so a fresh session is generated on every C
 ### 4. Test report artifact
 
 On every run (pass, fail, or cancelled — except cancelled), the workflow uploads `playwright-report/` as a build artifact, downloadable from the Actions run summary, retained for 30 days.
+
+### 5. Gmail OAuth – Salesforce Verification
+
+Salesforce sends a verification code to Gmail when logging in from a new environment. To automate this step, the framework uses the Gmail API with Google OAuth 2.0.
+
+How it works
+Playwright logs in to Salesforce using the username and password.
+Salesforce sends a verification code to Gmail.
+The Gmail API automatically reads the Salesforce email.
+The verification code is extracted and entered into Salesforce.
+Login is completed without manual intervention.
+Configuration
+Gmail API is enabled through Google Cloud.
+OAuth 2.0 credentials and a refresh token are configured.
+Local credentials are stored in config/.env.
+GitHub Actions credentials are stored securely as GitHub Secrets.
+Xvfb is used in GitHub Actions to run the headed browser.
+This allows Salesforce authentication and email verification to run automatically both locally and in GitHub Actions.
