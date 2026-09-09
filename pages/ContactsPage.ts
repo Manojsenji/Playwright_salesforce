@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page,expect } from "@playwright/test";
 
 export class ContactsPage {
   readonly page: Page;
@@ -13,7 +13,7 @@ export class ContactsPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.newBtn = page.getByText("New", { exact: true });
+    this.newBtn = page.getByRole("button", {name:"New" ,exact: true });
     this.salutationDropdown = page.getByRole("combobox", {
       name: "Salutation",
     });
@@ -27,13 +27,13 @@ export class ContactsPage {
     });
     this.phoneNo = page.getByRole("textbox", { name: "Phone" });
     this.saveBtn = page.locator('[name="SaveEdit"]');
-
-
-
   }
 
   async clickNewBtnToAddContact() {
     await this.newBtn.click();
+      await expect(
+        this.page.getByRole("heading", { name: "New Contact" }),
+      ).toBeVisible();
   }
 
   async clickSalutationDropdown() {

@@ -1,4 +1,4 @@
-import {Locator, Page} from "@playwright/test";
+import {Locator, Page,expect} from "@playwright/test";
 
 export class DashboardPage {
   readonly page: Page;
@@ -25,5 +25,11 @@ export class DashboardPage {
 
   async goToContacts() {
     await this.contactsTab.click();
+    await expect(this.page.locator("h1").filter({ hasText: "Contacts" }).last()).toBeVisible();
+    await this.page.waitForURL(/\/lightning\/o\/Contact\//);
+     // Wait until the Contacts New link is available
+  await expect(
+    this.page.getByRole("button", { name: "New", exact: true })
+  ).toBeVisible();
   }
 }
